@@ -11,10 +11,12 @@ import edu.wpi.first.wpilibj.event.BooleanEvent;
 import edu.wpi.first.wpilibj.event.EventLoop;
 
 /**
- * Handle input from Xbox controllers connected to the Driver Station.
+ * Handle input from the Thrustmaster T-Flight Hotas X connected to the Driver
+ * Station.
  *
  * <p>
- * This class handles Flight Hotas X input that comes from the Driver Station.
+ * This class handles Thrustmaster T-Flight Hotas X input that comes from the
+ * Driver Station.
  * Each time a value is requested the most recent value is returned. There is a
  * single class instance for each controller and the mapping of ports to
  * hardware buttons depends on the code in the Driver Station.

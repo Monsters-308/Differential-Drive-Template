@@ -10,12 +10,12 @@ import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /**
- * A version of {@link FlightHotasX} with {@link Trigger} factories for
+ * A version of {@link TFlightHotasX} with {@link Trigger} factories for
  * command-based.
  *
- * @see FlightHotasX
+ * @see TFlightHotasX
  */
-public class CommandFlightHotasX extends CommandGenericHID {
+public class CommandTFlightHotasX extends CommandGenericHID {
     private final FlightHotasX m_hid;
 
     /**
@@ -24,7 +24,7 @@ public class CommandFlightHotasX extends CommandGenericHID {
      * @param port The port index on the Driver Station that the controller is
      *             plugged into.
      */
-    public CommandFlightHotasX(int port) {
+    public CommandTFlightHotasX(int port) {
         super(port);
         m_hid = new FlightHotasX(port);
     }
