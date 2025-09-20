@@ -10,8 +10,10 @@ import frc.robot.utils.CommandFlightHotasX;
 
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
+import edu.wpi.first.wpilibj2.command.Command.InterruptionBehavior;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
@@ -40,6 +42,13 @@ public class RobotContainer {
      */
     public RobotContainer() {
         configureBindings();
+
+        // prevent robot from moving until throttle is back to zero
+        Command safetyCommand = new WaitUntilCommand(() -> m_driverController.getThrottle() == 0)
+                .withInterruptBehavior(InterruptionBehavior.kCancelIncoming);
+        safetyCommand.addRequirements(m_driveTrain);
+
+        safetyCommand.schedule();
     }
 
     /**
@@ -58,7 +67,8 @@ public class RobotContainer {
      */
     private void configureBindings() {
         m_driveTrain.setDefaultCommand(
-                m_driveTrain.driveJoysticks(m_driverController::getThrottle, m_driverController::getStickX,
+                m_driveTrain.driveJoysticks(m_driverController::getThrottle,
+                        m_driverController::getStickX,
                         m_driverController.getHID()::getR1Button));
 
         CommandScheduler.getInstance().schedule();
@@ -66,6 +76,7 @@ public class RobotContainer {
 
     /**
      * Sets the idle mode of the drive motors.
+     * 
      * @param mode The idle mode to set.
      */
     public void setDriveIdleMode(IdleMode mode) {
