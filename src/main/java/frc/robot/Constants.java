@@ -85,15 +85,14 @@ public final class Constants {
         // kinematics
         public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(kTrackWidth);
 
-        // this makes it so if there any stick drift it prevents the robot from move due
-        // to the stick drift
+        // controller axis deadbands, sensitivities, and multipliers
         public static final double kDeadBand = 0.01;
 
-        public static final double kForwardAxisSensitvity = 0.4;
-        public static final double kRotatonAxisSenitvity = 0.4;
+        public static final double kForwardAxisSensitvity = 0.8;
+        public static final double kRotatonAxisSenitvity = 0.8;
 
         public static final double kForwardAxisMultiplier = 1;
-        public static final double kTurningAxisMultiplier = 0.7;
+        public static final double kTurningAxisMultiplier = 1;
     }
 
     public static class AutoConstants {
