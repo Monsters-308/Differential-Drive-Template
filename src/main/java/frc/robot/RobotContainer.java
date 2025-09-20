@@ -27,8 +27,10 @@ public class RobotContainer {
     private final DriveTrain m_driveTrain = new DriveTrain();
 
     // controllers
-    private final CommandFlightHotasX m_driverController = new CommandFlightHotasX(OperatorConstants.kDriverControllerPort);
-    private final CommandXboxController m_coDriverController = new CommandXboxController(OperatorConstants.kCoDriverControllerPort);
+    private final CommandFlightHotasX m_driverController = new CommandFlightHotasX(
+            OperatorConstants.kDriverControllerPort);
+    private final CommandXboxController m_coDriverController = new CommandXboxController(
+            OperatorConstants.kCoDriverControllerPort);
 
     /**
      * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -55,27 +57,5 @@ public class RobotContainer {
         m_driveTrain.setDefaultCommand(
                 m_driveTrain.driveJoysticks(m_driverController::getThrottle, m_driverController::getStickX,
                         m_driverController.getHID()::getR1Button));
-
-        ShuffleboardTab operatorTab = Shuffleboard.getTab("Operator");
-
-        operatorTab.addBoolean("L1", m_driverController.getHID()::getL1Button);
-        operatorTab.addBoolean("L2", m_driverController.getHID()::getL2Button);
-        operatorTab.addBoolean("L3", m_driverController.getHID()::getL3Button);
-        operatorTab.addBoolean("R1", m_driverController.getHID()::getR1Button);
-        operatorTab.addBoolean("R2", m_driverController.getHID()::getR2Button);
-        operatorTab.addBoolean("R3", m_driverController.getHID()::getR3Button);
-        operatorTab.addBoolean("5", m_driverController.getHID()::get5Button);
-        operatorTab.addBoolean("6", m_driverController.getHID()::get6Button);
-        operatorTab.addBoolean("7", m_driverController.getHID()::get7Button);
-        operatorTab.addBoolean("8", m_driverController.getHID()::get8Button);
-        operatorTab.addBoolean("Start", m_driverController.getHID()::getStartButton);
-        operatorTab.addBoolean("Select", m_driverController.getHID()::getSelectButton);
-
-        operatorTab.addDouble("Stick X", m_driverController::getStickX);
-        operatorTab.addDouble("Stick Y", m_driverController::getStickY);
-        operatorTab.addDouble("Throttle", m_driverController::getThrottle);
-        operatorTab.addDouble("Rudder", m_driverController::getRudder);
-        operatorTab.addDouble("Rocker", m_driverController::getRockerAxis);
-        operatorTab.addDouble("POV", m_driverController.getHID()::getPOV);
     }
 }
