@@ -182,7 +182,9 @@ public class DriveTrain extends SubsystemBase {
             BooleanSupplier turnInPlaceSupplier) {
         return run(() -> {
             double forward = xSpeedSupplier.getAsDouble();
-            double turning = zRotationSupplier.getAsDouble();
+            // Negate this because right corresponds with clockwise rotation, so it should
+            // be negative
+            double turning = -zRotationSupplier.getAsDouble();
 
             forward = ControllerUtils.joystickTransform(forward, DriveConstants.kForwardAxisSensitvity,
                     DriveConstants.kDeadBand, DriveConstants.kForwardAxisMultiplier);
