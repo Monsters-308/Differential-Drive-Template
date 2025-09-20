@@ -8,8 +8,11 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.utils.CommandFlightHotasX;
 
+import com.pathplanner.lib.auto.AutoBuilder;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
@@ -37,6 +40,8 @@ public class RobotContainer {
     private final CommandXboxController m_coDriverController = new CommandXboxController(
             OperatorConstants.kCoDriverControllerPort);
 
+    private SendableChooser<Command> m_autoChooser;
+
     /**
      * The container for the robot. Contains subsystems, OI devices, and commands.
      */
@@ -49,6 +54,10 @@ public class RobotContainer {
         safetyCommand.addRequirements(m_driveTrain);
 
         safetyCommand.schedule();
+
+        m_autoChooser = AutoBuilder.buildAutoChooser();
+
+        Shuffleboard.getTab("Autonomous").add("Auto", m_autoChooser);
     }
 
     /**
@@ -81,5 +90,12 @@ public class RobotContainer {
      */
     public void setDriveIdleMode(IdleMode mode) {
         m_driveTrain.setIdleMode(mode);
+    }
+
+    /**
+     * Gets the {@link Command} to run in autonomous.
+     */
+    public Command getAutonomousCommand() {
+        return m_autoChooser.getSelected();
     }
 }
