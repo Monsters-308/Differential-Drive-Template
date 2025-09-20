@@ -109,8 +109,10 @@ public final class Constants {
 
         public static final double kDescretizationTime = 0.01;
 
+        public static final double kTrueMaxSpeedMetersPerSecond = 5.6;
+
         public static final RobotConfig kRobotConfig = new RobotConfig(kMassKG, kRobotMOI,
-                new ModuleConfig(DriveConstants.kWheelDiameter / 2, DriveConstants.kMaxSpeedMetersPerSecond,
+                new ModuleConfig(DriveConstants.kWheelDiameter / 2, kTrueMaxSpeedMetersPerSecond,
                         kWheelCOF, kDriveMotor, DriveConstants.kSmartCurrentLimit, 2),
                 DriveConstants.kTrackWidth);
 
