@@ -61,8 +61,7 @@ public class DriveTrain extends SubsystemBase {
     private final DifferentialDrive m_drive = new DifferentialDrive(this::setLeftVelocity, this::setRightVelocity);
 
     // calculates odometry
-    private final DifferentialDriveOdometry m_odometry = new DifferentialDriveOdometry(
-            m_gyro.getRotation2d(), getLeftPosition(), getRightPosition());
+    private final DifferentialDriveOdometry m_odometry;
 
     // displays robot position on field
     private final Field2d m_field = new Field2d();
@@ -110,6 +109,9 @@ public class DriveTrain extends SubsystemBase {
 
         m_leftClosedLoop = m_leftLeader.getClosedLoopController();
         m_rightClosedLoop = m_rightLeader.getClosedLoopController();
+
+        m_odometry = new DifferentialDriveOdometry(
+                m_gyro.getRotation2d(), getLeftPosition(), getRightPosition());
 
         // we handle the deadband ourselves
         m_drive.setDeadband(0);
