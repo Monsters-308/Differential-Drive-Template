@@ -75,16 +75,19 @@ public class DriveTrain extends SubsystemBase {
         SparkMaxConfig config = new SparkMaxConfig();
 
         // sets the idle mode, the smart current limit, and the inversion
-        config.smartCurrentLimit(DriveConstants.kSmartCurrentLimit);
-        config.idleMode(DriveConstants.kMotorIdleMode);
+        config
+                .smartCurrentLimit(DriveConstants.kSmartCurrentLimit)
+                .idleMode(DriveConstants.kMotorIdleMode);
 
         // sets the PID
-        config.closedLoop.pid(DriveConstants.kVelocityP, DriveConstants.kVelocityI, DriveConstants.kVelocityD);
-        config.closedLoop.velocityFF(DriveConstants.kVelocityFF);
+        config.closedLoop
+                .pid(DriveConstants.kVelocityP, DriveConstants.kVelocityI, DriveConstants.kVelocityD)
+                .velocityFF(DriveConstants.kVelocityFF);
 
         // sets encoder conversion factors
-        config.encoder.positionConversionFactor(DriveConstants.kRotationsToMeters);
-        config.encoder.velocityConversionFactor(DriveConstants.KRotationsPerMinuteToMetersPerSecond);
+        config.encoder
+                .positionConversionFactor(DriveConstants.kRotationsToMeters)
+                .velocityConversionFactor(DriveConstants.KRotationsPerMinuteToMetersPerSecond);
 
         // left side motors
         config.inverted(DriveConstants.kLeftMotorsInverted);
