@@ -109,7 +109,7 @@ public final class Constants {
         public static final DCMotor kDriveMotorGearbox = DCMotor.getNEO(2)
                 .withReduction(DriveConstants.kGearReduction);
 
-        public static final double kTrueMaxSpeedMetersPerSecond = 0.8 * NEOMotorConstants.kFreeSpeedRPM
+        public static final double kTrueMaxSpeedMetersPerSecond = 0.85 * NEOMotorConstants.kFreeSpeedRPM
                 * DriveConstants.kRotationsPerMinuteToMetersPerSecond;
 
         public static final RobotConfig kRobotConfig = new RobotConfig(kMassKG, kRobotMOI,
