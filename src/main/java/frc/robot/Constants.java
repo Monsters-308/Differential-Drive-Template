@@ -13,6 +13,7 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.TimedRobot;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
@@ -107,8 +108,6 @@ public final class Constants {
 
         public static final DCMotor kDriveMotor = DCMotor.getNEO(2);
 
-        public static final double kDescretizationTime = 0.01;
-
         public static final double kTrueMaxSpeedMetersPerSecond = 5.6;
 
         public static final RobotConfig kRobotConfig = new RobotConfig(kMassKG, kRobotMOI,
@@ -116,7 +115,7 @@ public final class Constants {
                         kWheelCOF, kDriveMotor, DriveConstants.kSmartCurrentLimit, 2),
                 DriveConstants.kTrackWidth);
 
-        public static final PathFollowingController kAutoController = new PPLTVController(kDescretizationTime,
+        public static final PathFollowingController kAutoController = new PPLTVController(TimedRobot.kDefaultPeriod,
                 DriveConstants.kMaxSpeedMetersPerSecond);
     }
 }
