@@ -108,7 +108,8 @@ public final class Constants {
 
         public static final DCMotor kDriveMotor = DCMotor.getNEO(2);
 
-        public static final double kTrueMaxSpeedMetersPerSecond = 5.6;
+        public static final double kTrueMaxSpeedMetersPerSecond = 0.8 * NEOMotorConstants.kFreeSpeedRPM
+                * DriveConstants.KRotationsPerMinuteToMetersPerSecond;
 
         public static final RobotConfig kRobotConfig = new RobotConfig(kMassKG, kRobotMOI,
                 new ModuleConfig(DriveConstants.kWheelRadius, kTrueMaxSpeedMetersPerSecond,
@@ -117,5 +118,16 @@ public final class Constants {
 
         public static final PathFollowingController kAutoController = new PPLTVController(TimedRobot.kDefaultPeriod,
                 DriveConstants.kMaxSpeedMetersPerSecond);
+    }
+
+    public static class NEOMotorConstants {
+        private NEOMotorConstants() {
+            throw new UnsupportedOperationException("This is a constants class!");
+        }
+
+        public static final double kFreeSpeedRPM = 5676;
+        public static final double kStallTorqueNm = 2.6;
+        public static final double kStallCurrentAmps = 105;
+        public static final double kFreeCurrentAmps = 1.5;
     }
 }
