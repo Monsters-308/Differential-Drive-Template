@@ -91,7 +91,7 @@ public class DriveTrain extends SubsystemBase {
         // sets encoder conversion factors
         config.encoder
                 .positionConversionFactor(DriveConstants.kRotationsToMeters)
-                .velocityConversionFactor(DriveConstants.KRotationsPerMinuteToMetersPerSecond);
+                .velocityConversionFactor(DriveConstants.kRotationsPerMinuteToMetersPerSecond);
 
         // left side motors
         config.inverted(DriveConstants.kLeftMotorsInverted);
@@ -154,7 +154,7 @@ public class DriveTrain extends SubsystemBase {
                         .andThen(linearRoutine.quasistatic(Direction.kForward))
                         .andThen(linearRoutine.quasistatic(Direction.kReverse))
                         .withName("SysId Linear"));
-        
+
         m_driveTab.add("SysId Angular",
                 angularRoutine.dynamic(Direction.kForward)
                         .andThen(angularRoutine.dynamic(Direction.kReverse))

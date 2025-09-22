@@ -81,7 +81,7 @@ public final class Constants {
 
         // encoder conversion factors
         public static final double kRotationsToMeters = kWheelCircumference / kGearRatio;
-        public static final double KRotationsPerMinuteToMetersPerSecond = kRotationsToMeters / 60;
+        public static final double kRotationsPerMinuteToMetersPerSecond = kRotationsToMeters / 60;
 
         // kinematics
         public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(kTrackWidth);
@@ -109,7 +109,7 @@ public final class Constants {
         public static final DCMotor kDriveMotor = DCMotor.getNEO(2);
 
         public static final double kTrueMaxSpeedMetersPerSecond = 0.8 * NEOMotorConstants.kFreeSpeedRPM
-                * DriveConstants.KRotationsPerMinuteToMetersPerSecond;
+                * DriveConstants.kRotationsPerMinuteToMetersPerSecond;
 
         public static final RobotConfig kRobotConfig = new RobotConfig(kMassKG, kRobotMOI,
                 new ModuleConfig(DriveConstants.kWheelRadius, kTrueMaxSpeedMetersPerSecond,
