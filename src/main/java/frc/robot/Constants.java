@@ -112,7 +112,7 @@ public final class Constants {
         public static final double kTrueMaxSpeedMetersPerSecond = 5.6;
 
         public static final RobotConfig kRobotConfig = new RobotConfig(kMassKG, kRobotMOI,
-                new ModuleConfig(DriveConstants.kWheelDiameter / 2, kTrueMaxSpeedMetersPerSecond,
+                new ModuleConfig(DriveConstants.kWheelRadius, kTrueMaxSpeedMetersPerSecond,
                         kWheelCOF, kDriveMotor, DriveConstants.kSmartCurrentLimit, 2),
                 DriveConstants.kTrackWidth);
 
