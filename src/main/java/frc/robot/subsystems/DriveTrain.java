@@ -88,6 +88,10 @@ public class DriveTrain extends SubsystemBase {
                 .pid(DriveConstants.kVelocityP, DriveConstants.kVelocityI, DriveConstants.kVelocityD)
                 .velocityFF(DriveConstants.kVelocityFF);
 
+        config.closedLoop.maxMotion
+                .maxVelocity(DriveConstants.kMaxSpeedMetersPerSecond)
+                .maxAcceleration(DriveConstants.kMaxAccelerationMetersPerSecondSquared);
+
         // sets encoder conversion factors
         config.encoder
                 .positionConversionFactor(DriveConstants.kRotationsToMeters)
@@ -273,7 +277,7 @@ public class DriveTrain extends SubsystemBase {
      * @speed The velocity to set in meters per second. Forward is positive.
      */
     public void setLeftVelocity(double speed) {
-        m_leftClosedLoop.setReference(speed, ControlType.kVelocity);
+        m_leftClosedLoop.setReference(speed, ControlType.kMAXMotionVelocityControl);
     }
 
     /**
@@ -301,7 +305,7 @@ public class DriveTrain extends SubsystemBase {
      * @speed The velocity to set in meters per second. Forward is positive.
      */
     public void setRightVelocity(double speed) {
-        m_rightClosedLoop.setReference(speed, ControlType.kVelocity);
+        m_rightClosedLoop.setReference(speed, ControlType.kMAXMotionVelocityControl);
     }
 
     /**
