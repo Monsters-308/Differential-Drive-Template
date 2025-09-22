@@ -75,12 +75,12 @@ public final class Constants {
         public static final double kWheelRadius = Units.inchesToMeters(3);
         public static final double kWheelDiameter = 2 * kWheelRadius;
         public static final double kWheelCircumference = kWheelDiameter * Math.PI;
-        public static final double kGearRatio = 8.45865;
+        public static final double kGearReduction = 8.45865;
 
         public static final double kTrackWidth = 0.5;
 
         // encoder conversion factors
-        public static final double kRotationsToMeters = kWheelCircumference / kGearRatio;
+        public static final double kRotationsToMeters = kWheelCircumference / kGearReduction;
         public static final double kRotationsPerMinuteToMetersPerSecond = kRotationsToMeters / 60;
 
         // kinematics
@@ -107,7 +107,7 @@ public final class Constants {
         public static final double kWheelCOF = 1;
 
         public static final DCMotor kDriveMotorGearbox = DCMotor.getNEO(2)
-                .withReduction(DriveConstants.kGearRatio);
+                .withReduction(DriveConstants.kGearReduction);
 
         public static final double kTrueMaxSpeedMetersPerSecond = 0.8 * NEOMotorConstants.kFreeSpeedRPM
                 * DriveConstants.kRotationsPerMinuteToMetersPerSecond;
