@@ -61,7 +61,7 @@ public final class Constants {
         public static final IdleMode kMotorIdleMode = IdleMode.kBrake;
 
         // smartLimit
-        public static final int kSmartCurrentLimit = 40;
+        public static final int kSmartCurrentLimit = 30;
 
         public static final double kMaxSpeedMetersPerSecond = 5.6;
 
