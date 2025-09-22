@@ -30,6 +30,10 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
+import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Config;
+import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
+import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Mechanism;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.utils.ControllerUtils;
@@ -133,6 +137,30 @@ public class DriveTrain extends SubsystemBase {
         m_driveTab.addNumber("Robot Heading (deg)", () -> m_odometry.getPoseMeters().getRotation().getDegrees());
 
         m_driveTab.add("Field", m_field);
+
+        SysIdRoutine linearRoutine = new SysIdRoutine(new Config(), new Mechanism(voltage -> {
+            m_leftLeader.setVoltage(voltage);
+            m_rightLeader.setVoltage(voltage);
+        }, null, this));
+
+        SysIdRoutine angularRoutine = new SysIdRoutine(new Config(), new Mechanism(voltage -> {
+            m_leftLeader.setVoltage(voltage.unaryMinus());
+            m_rightLeader.setVoltage(voltage);
+        }, null, this));
+
+        m_driveTab.add("SysId Linear",
+                linearRoutine.dynamic(Direction.kForward)
+                        .andThen(linearRoutine.dynamic(Direction.kReverse))
+                        .andThen(linearRoutine.quasistatic(Direction.kForward))
+                        .andThen(linearRoutine.quasistatic(Direction.kReverse))
+                        .withName("SysId Linear"));
+        
+        m_driveTab.add("SysId Angular",
+                angularRoutine.dynamic(Direction.kForward)
+                        .andThen(angularRoutine.dynamic(Direction.kReverse))
+                        .andThen(angularRoutine.quasistatic(Direction.kForward))
+                        .andThen(angularRoutine.quasistatic(Direction.kReverse))
+                        .withName("SysId Angular"));
 
         AutoBuilder.configure(m_odometry::getPoseMeters, this::resetOdometry, this::getChassisSpeeds,
                 this::driveRobotRelative, AutoConstants.kAutoController, AutoConstants.kRobotConfig, () -> false, this);
