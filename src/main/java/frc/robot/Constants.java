@@ -106,14 +106,14 @@ public final class Constants {
 
         public static final double kWheelCOF = 1;
 
-        public static final DCMotor kDriveMotor = DCMotor.getNEO(2);
+        public static final DCMotor kDriveMotorGearbox = DCMotor.getNEO(2);
 
         public static final double kTrueMaxSpeedMetersPerSecond = 0.8 * NEOMotorConstants.kFreeSpeedRPM
                 * DriveConstants.kRotationsPerMinuteToMetersPerSecond;
 
         public static final RobotConfig kRobotConfig = new RobotConfig(kMassKG, kRobotMOI,
                 new ModuleConfig(DriveConstants.kWheelRadius, kTrueMaxSpeedMetersPerSecond,
-                        kWheelCOF, kDriveMotor, DriveConstants.kSmartCurrentLimit, 2),
+                        kWheelCOF, kDriveMotorGearbox, DriveConstants.kSmartCurrentLimit, 2),
                 DriveConstants.kTrackWidth);
 
         public static final PathFollowingController kAutoController = new PPLTVController(TimedRobot.kDefaultPeriod,
