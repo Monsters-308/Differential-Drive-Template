@@ -42,18 +42,18 @@ public class RobotContainer {
 
     private SendableChooser<Command> m_autoChooser;
 
+    private Command m_driveLockCommand;
+
     /**
      * The container for the robot. Contains subsystems, OI devices, and commands.
      */
     public RobotContainer() {
         configureBindings();
 
-        // prevent robot from moving until throttle is back to zero
-        Command safetyCommand = new WaitUntilCommand(() -> m_driverController.getThrottle() == 0)
+        // lock drive until throttle is zero
+        m_driveLockCommand = new WaitUntilCommand(() -> m_driverController.getThrottle() == 0)
                 .withInterruptBehavior(InterruptionBehavior.kCancelIncoming);
-        safetyCommand.addRequirements(m_driveTrain);
-
-        safetyCommand.schedule();
+        m_driveLockCommand.addRequirements(m_driveTrain);
 
         m_autoChooser = AutoBuilder.buildAutoChooser();
 
@@ -90,6 +90,16 @@ public class RobotContainer {
      */
     public void setDriveIdleMode(IdleMode mode) {
         m_driveTrain.setIdleMode(mode);
+    }
+
+    /**
+     * Gets the {@link Command} that will prevent the drive from moving until the
+     * throttle is moved back to zero.
+     * 
+     * @return The Command.
+     */
+    public Command getDriveLockCommand() {
+        return m_driveLockCommand;
     }
 
     /**
