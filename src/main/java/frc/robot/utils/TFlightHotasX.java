@@ -133,7 +133,7 @@ public class TFlightHotasX extends GenericHID {
     }
 
     /**
-     * Get the Y axis value of the joystick of the controller. Back is positive.
+     * Get the Y axis value of the joystick of the controller. Backward is positive.
      * 
      * @return The axis value.
      */
@@ -142,12 +142,12 @@ public class TFlightHotasX extends GenericHID {
     }
 
     /**
-     * Get the throttle axis value of the controller. Forward is positive.
+     * Get the throttle axis value of the controller. Backward is positive.
      * 
      * @return The axis value.
      */
     public double getThrottle() {
-        return -getRawAxis(Axis.kThrottle.value);
+        return getRawAxis(Axis.kThrottle.value);
     }
 
     /**

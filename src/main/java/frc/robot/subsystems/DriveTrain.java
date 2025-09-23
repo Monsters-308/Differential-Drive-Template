@@ -202,7 +202,7 @@ public class DriveTrain extends SubsystemBase {
      * inputs.
      * 
      * @param xSpeedSupplier      Supplies the axis value for forward/backward
-     *                            movement in the range [-1, 1]. Forward is
+     *                            movement in the range [-1, 1]. Backward is
      *                            positive.
      *                            It will be transformed based on the sensitivity,
      *                            deadband, and multiplier values.
@@ -218,9 +218,8 @@ public class DriveTrain extends SubsystemBase {
     public Command driveJoysticks(DoubleSupplier xSpeedSupplier, DoubleSupplier zRotationSupplier,
             BooleanSupplier turnInPlaceSupplier) {
         return run(() -> {
-            double forward = xSpeedSupplier.getAsDouble();
-            // Negate this because right corresponds with clockwise rotation and drive(..)
-            // expects counterclockwise positive
+            // Negate these because controller axes are typically inverted
+            double forward = -xSpeedSupplier.getAsDouble();
             double turning = -zRotationSupplier.getAsDouble();
 
             forward = ControllerUtils.joystickTransform(forward, DriveConstants.kForwardAxisSensitvity,
