@@ -259,9 +259,8 @@ public class CommandTFlightHotasX extends CommandGenericHID {
      * Constructs a Trigger instance around the 8 button's digital signal.
      *
      * @return a Trigger instance representing the 8 button's digital signal
-     *         attached
-     *         to the {@link CommandScheduler#getDefaultButtonLoop() default
-     *         scheduler button loop}.
+     *         attached to the {@link CommandScheduler#getDefaultButtonLoop()
+     *         default scheduler button loop}.
      * @see #B8(EventLoop)
      */
     public Trigger B8() {
@@ -283,9 +282,8 @@ public class CommandTFlightHotasX extends CommandGenericHID {
      * Constructs a Trigger instance around the select button's digital signal.
      *
      * @return a Trigger instance representing the select button's digital signal
-     *         attached
-     *         to the {@link CommandScheduler#getDefaultButtonLoop() default
-     *         scheduler button loop}.
+     *         attached to the {@link CommandScheduler#getDefaultButtonLoop()
+     *         default scheduler button loop}.
      * @see #select(EventLoop)
      */
     public Trigger select() {
@@ -307,9 +305,8 @@ public class CommandTFlightHotasX extends CommandGenericHID {
      * Constructs a Trigger instance around the start button's digital signal.
      *
      * @return a Trigger instance representing the start button's digital signal
-     *         attached
-     *         to the {@link CommandScheduler#getDefaultButtonLoop() default
-     *         scheduler button loop}.
+     *         attached to the {@link CommandScheduler#getDefaultButtonLoop()
+     *         default scheduler button loop}.
      * @see #start(EventLoop)
      */
     public Trigger start() {
