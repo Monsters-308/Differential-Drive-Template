@@ -244,7 +244,7 @@ public class DriveTrain extends SubsystemBase {
      * 
      * @return The current robot relative chassis speeds.
      */
-    private ChassisSpeeds getChassisSpeeds() {
+    public ChassisSpeeds getChassisSpeeds() {
         DifferentialDriveWheelSpeeds wheelSpeeds = new DifferentialDriveWheelSpeeds(getLeftVelocity(),
                 getRightVelocity());
         ChassisSpeeds speeds = DriveConstants.kDriveKinematics.toChassisSpeeds(wheelSpeeds);
