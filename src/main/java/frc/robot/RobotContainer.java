@@ -79,8 +79,6 @@ public class RobotContainer {
                 m_driveTrain.driveJoysticks(m_driverController::getThrottle,
                         m_driverController::getStickX,
                         m_driverController.getHID()::getR1Button));
-
-        CommandScheduler.getInstance().schedule();
     }
 
     /**
