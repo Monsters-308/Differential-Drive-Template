@@ -211,7 +211,7 @@ public class DriveTrain extends SubsystemBase {
      *                            transformed based on the sensitivity,
      *                            deadband, and multiplier values.
      * @param turnInPlaceSupplier Supplies whether to override curvature drive to
-     *                            all for turn in place maneuvers.
+     *                            allow for turn in place maneuvers.
      * 
      * @return A Command that drives the robot based on joystick inputs.
      */
