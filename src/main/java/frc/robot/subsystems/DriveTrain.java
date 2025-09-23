@@ -219,15 +219,15 @@ public class DriveTrain extends SubsystemBase {
             BooleanSupplier turnInPlaceSupplier) {
         return run(() -> {
             // Negate these because controller axes are typically inverted
-            double forward = -xSpeedSupplier.getAsDouble();
-            double turning = -zRotationSupplier.getAsDouble();
+            double xSpeed = -xSpeedSupplier.getAsDouble();
+            double zRotation = -zRotationSupplier.getAsDouble();
 
-            forward = ControllerUtils.joystickTransform(forward, DriveConstants.kForwardAxisSensitvity,
+            xSpeed = ControllerUtils.joystickTransform(xSpeed, DriveConstants.kForwardAxisSensitvity,
                     DriveConstants.kDeadBand, DriveConstants.kForwardAxisMultiplier);
-            turning = ControllerUtils.joystickTransform(turning, DriveConstants.kRotatonAxisSenitvity,
+            zRotation = ControllerUtils.joystickTransform(zRotation, DriveConstants.kRotatonAxisSenitvity,
                     DriveConstants.kDeadBand, DriveConstants.kTurningAxisMultiplier);
 
-            drive(forward, turning, turnInPlaceSupplier.getAsBoolean());
+            drive(xSpeed, zRotation, turnInPlaceSupplier.getAsBoolean());
         });
     }
 
