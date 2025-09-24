@@ -89,7 +89,7 @@ public final class Constants {
         public static final double kDeadBand = 0.01;
 
         public static final double kForwardAxisSensitvity = 0.8;
-        public static final double kRotatonAxisSenitvity = 0.8;
+        public static final double kRotatonAxisSenitvity = 1;
 
         public static final double kForwardAxisMultiplier = 1;
         public static final double kTurningAxisMultiplier = 1;
