@@ -145,11 +145,17 @@ public class DriveTrain extends SubsystemBase {
         SysIdRoutine linearRoutine = new SysIdRoutine(new Config(), new Mechanism(voltage -> {
             m_leftLeader.setVoltage(voltage);
             m_rightLeader.setVoltage(voltage);
+
+            // Feed drive to prevent it from warning about infrequent updates
+            m_drive.feed();
         }, null, this));
 
         SysIdRoutine angularRoutine = new SysIdRoutine(new Config(), new Mechanism(voltage -> {
             m_leftLeader.setVoltage(voltage.unaryMinus());
             m_rightLeader.setVoltage(voltage);
+            
+            // Feed drive to prevent it from warning about infrequent updates
+            m_drive.feed();
         }, null, this));
 
         m_driveTab.add("SysId Linear",
