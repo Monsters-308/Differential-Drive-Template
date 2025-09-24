@@ -6,8 +6,6 @@ package frc.robot;
 
 import org.littletonrobotics.urcl.URCL;
 
-import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
-
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -63,17 +61,10 @@ public class Robot extends TimedRobot {
     /** This function is called once each time the robot enters Disabled mode. */
     @Override
     public void disabledInit() {
-        m_robotContainer.setDriveIdleMode(IdleMode.kCoast);
     }
 
     @Override
     public void disabledPeriodic() {
-    }
-
-    @Override
-    public void disabledExit() {
-        m_robotContainer.setDriveIdleMode(IdleMode.kBrake);
-        m_robotContainer.getDriveLockCommand().schedule();
     }
 
     /**
