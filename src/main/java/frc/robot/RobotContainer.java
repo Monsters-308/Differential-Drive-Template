@@ -11,12 +11,14 @@ import frc.robot.utils.CommandTFlightHotasX;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import edu.wpi.first.wpilibj2.command.Command.InterruptionBehavior;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /**
@@ -38,8 +40,6 @@ public class RobotContainer {
 
     private SendableChooser<Command> m_autoChooser;
 
-    private Command m_driveLockCommand;
-
     /**
      * The container for the robot. Contains subsystems, OI devices, and commands.
      */
@@ -47,9 +47,17 @@ public class RobotContainer {
         configureBindings();
 
         // lock drive until throttle is zero
-        m_driveLockCommand = new WaitUntilCommand(() -> m_driverController.getThrottle() == 0)
+        Command driveLockCommand = new WaitUntilCommand(() -> m_driverController.getThrottle() == 0)
                 .withInterruptBehavior(InterruptionBehavior.kCancelIncoming);
-        m_driveLockCommand.addRequirements(m_driveTrain);
+        driveLockCommand.addRequirements(m_driveTrain);
+
+        new Trigger(DriverStation::isEnabled)
+                .onTrue(m_driveTrain.runOnce(() -> m_driveTrain.setIdleMode(IdleMode.kBrake)))
+                .onTrue(driveLockCommand);
+
+        RobotModeTriggers.disabled()
+                .onTrue(m_driveTrain.runOnce(() -> m_driveTrain.setIdleMode(IdleMode.kCoast))
+                        .ignoringDisable(true));
 
         m_autoChooser = AutoBuilder.buildAutoChooser();
 
@@ -70,26 +78,7 @@ public class RobotContainer {
         m_driveTrain.setDefaultCommand(
                 m_driveTrain.driveJoysticks(m_driverController::getThrottle,
                         m_driverController::getStickX,
-                        m_driverController.getHID()::getR1Button));
-    }
-
-    /**
-     * Sets the idle mode of the drive motors.
-     * 
-     * @param mode The idle mode to set.
-     */
-    public void setDriveIdleMode(IdleMode mode) {
-        m_driveTrain.setIdleMode(mode);
-    }
-
-    /**
-     * Gets the {@link Command} that will prevent the drive from moving until the
-     * throttle is moved back to zero.
-     * 
-     * @return The Command.
-     */
-    public Command getDriveLockCommand() {
-        return m_driveLockCommand;
+                        m_driverController.getHID()::getR2Button));
     }
 
     /**
