@@ -6,17 +6,11 @@ package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.subsystems.DriveTrain;
-import frc.robot.utils.CommandTFlightHotasX;
-
-import com.pathplanner.lib.auto.AutoBuilder;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
-import edu.wpi.first.wpilibj2.command.Command.InterruptionBehavior;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -33,7 +27,7 @@ public class RobotContainer {
     private final DriveTrain m_driveTrain = new DriveTrain();
 
     // controllers
-    private final CommandTFlightHotasX m_driverController = new CommandTFlightHotasX(
+    private final CommandXboxController m_driverController = new CommandXboxController(
             OperatorConstants.kDriverControllerPort);
     private final CommandXboxController m_coDriverController = new CommandXboxController(
             OperatorConstants.kCoDriverControllerPort);
@@ -47,21 +41,21 @@ public class RobotContainer {
         configureBindings();
 
         // lock drive until throttle is zero
-        Command driveLockCommand = new WaitUntilCommand(() -> m_driverController.getThrottle() == 0)
-                .withInterruptBehavior(InterruptionBehavior.kCancelIncoming);
-        driveLockCommand.addRequirements(m_driveTrain);
+        // Command driveLockCommand = new WaitUntilCommand(() -> m_driverController.getThrottle() == 0)
+        //         .withInterruptBehavior(InterruptionBehavior.kCancelIncoming);
+        // driveLockCommand.addRequirements(m_driveTrain);
 
         new Trigger(DriverStation::isEnabled)
-                .onTrue(m_driveTrain.runOnce(() -> m_driveTrain.setIdleMode(IdleMode.kBrake)))
-                .onTrue(driveLockCommand);
+                .onTrue(m_driveTrain.runOnce(() -> m_driveTrain.setIdleMode(IdleMode.kBrake)));
+                // .onTrue(driveLockCommand);
 
         RobotModeTriggers.disabled()
                 .onTrue(m_driveTrain.runOnce(() -> m_driveTrain.setIdleMode(IdleMode.kCoast))
                         .ignoringDisable(true));
 
-        m_autoChooser = AutoBuilder.buildAutoChooser();
+        // m_autoChooser = AutoBuilder.buildAutoChooser();
 
-        Shuffleboard.getTab("Autonomous").add("Auto", m_autoChooser);
+        // Shuffleboard.getTab("Autonomous").add("Auto", m_autoChooser);
     }
 
     /**
@@ -76,9 +70,9 @@ public class RobotContainer {
      */
     private void configureBindings() {
         m_driveTrain.setDefaultCommand(
-                m_driveTrain.driveJoysticks(m_driverController::getThrottle,
-                        m_driverController::getStickX,
-                        m_driverController.getHID()::getR2Button));
+                m_driveTrain.driveJoysticks(m_driverController::getLeftY,
+                        m_driverController::getRightX,
+                        m_driverController.getHID()::getLeftBumperButton));
     }
 
     /**
