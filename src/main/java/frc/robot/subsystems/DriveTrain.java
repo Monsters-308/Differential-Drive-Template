@@ -24,11 +24,13 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Config;
@@ -148,25 +150,33 @@ public class DriveTrain extends SubsystemBase {
 
             // Feed drive to prevent it from warning about infrequent updates
             m_drive.feed();
-        }, null, this));
+        }, null, this, "drive-linear"));
 
         SysIdRoutine angularRoutine = new SysIdRoutine(new Config(), new Mechanism(voltage -> {
             m_leftLeader.setVoltage(voltage.unaryMinus());
             m_rightLeader.setVoltage(voltage);
-            
+
             // Feed drive to prevent it from warning about infrequent updates
             m_drive.feed();
-        }, null, this));
+        }, null, this, "drive-angular"));
 
         m_driveTab.add("SysId Linear",
-                linearRoutine.dynamic(Direction.kForward)
+                Commands.runOnce(() -> {
+                    DataLogManager.stop();
+                    DataLogManager.start("", "sysid-drive-linear.wpilog");
+                })
+                        .andThen(linearRoutine.dynamic(Direction.kForward))
                         .andThen(linearRoutine.dynamic(Direction.kReverse))
                         .andThen(linearRoutine.quasistatic(Direction.kForward))
                         .andThen(linearRoutine.quasistatic(Direction.kReverse))
                         .withName("SysId Linear"));
 
         m_driveTab.add("SysId Angular",
-                angularRoutine.dynamic(Direction.kForward)
+                Commands.runOnce(() -> {
+                    DataLogManager.stop();
+                    DataLogManager.start("", "sysid-drive-angular.wpilog");
+                })
+                        .andThen(angularRoutine.dynamic(Direction.kForward))
                         .andThen(angularRoutine.dynamic(Direction.kReverse))
                         .andThen(angularRoutine.quasistatic(Direction.kForward))
                         .andThen(angularRoutine.quasistatic(Direction.kReverse))
