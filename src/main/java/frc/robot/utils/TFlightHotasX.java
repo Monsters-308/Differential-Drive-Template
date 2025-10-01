@@ -142,7 +142,7 @@ public class TFlightHotasX extends GenericHID {
     }
 
     /**
-     * Get the throttle axis value of the controller. Backward is positive.
+     * Get the throttle axis value of the controller. Back is positive.
      * 
      * @return The axis value.
      */

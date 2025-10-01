@@ -438,7 +438,7 @@ public class CommandTFlightHotasX extends CommandGenericHID {
     }
 
     /**
-     * Get the throttle axis value of the controller. Forward is positive.
+     * Get the throttle axis value of the controller. Back is positive.
      * 
      * @return The axis value.
      */
